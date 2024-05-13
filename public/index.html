@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+    <h1>Task Manager</h1>
+
+    <ul id="taskList">
+        <!-- Tasks will be dynamically added here -->
+    </ul>
+
+    <script>
+      // JavaScript code to fetch and display tasks will go here
+      document.addEventListener('DOMContentLoaded', () => {
+      const taskList = document.getElementById('taskList');
+      // Function to fetch tasks from the backend and display them
+      const fetchTasks = async () => {
+        const response = await fetch('/tasks');
+        const tasks = await response.json();
+        taskList.innerHTML = ''; // Clear previous tasks
+        tasks.forEach(task => {
+            const taskItem = document.createElement('li');
+            taskItem.textContent = `${task.title}: ${task.description}`;
+            taskList.appendChild(taskItem);
+        });
+      };
+      // Fetch tasks when the page loads
+      fetchTasks();
+      });
+    </script>
+</body>
+</html>
+
